@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +13,7 @@ class AdminController extends Controller
     {
         return view('admin.admin_dashboard');
     }
+    ## login
     public function login(Request $request)
     {
         if ($request->isMethod('post')) {
@@ -36,6 +38,13 @@ class AdminController extends Controller
         }
         return view('admin.admin_login');
     }
+    ## settings
+    public function settings(){
+        $adminDetail = Admin::where('email',Auth::guard('admin')->user()->email)->first();
+
+        return view('admin.admin_settings')->with(compact('adminDetail'));
+    }
+    ## logout
     public function logout()
     {
         Auth::guard('admin')->logout();
