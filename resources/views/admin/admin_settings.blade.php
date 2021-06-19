@@ -33,12 +33,13 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form>
+                            <form method="POST" action="{{ url('/admin/update-pwd') }}" name="updatePasswordForm" id='updatePasswordForm'>
+                               @csrf
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Admin Name</label>
                                         <input type="text"  class="form-control" value="{{ $adminDetail->name }}"
-                                         placeholder="Enter Admin/Sub Admin Name">
+                                        name="admin_name" id='admin_name' placeholder="Enter Admin/Sub Admin Name">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Email address</label>
@@ -50,18 +51,19 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Current Password</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1"
-                                            placeholder="Enter Current Password">
+                                        <input type="password" class="form-control"
+                                         id="current_pwd" name="current_pwd"   placeholder="Enter Current Password">
+                                         <small id="chkCurrentPwd"></small>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">New Password</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1"
-                                            placeholder="Enter New Password">
+                                        <input type="password" class="form-control"
+                                          name="new_pwd" id="new_pwd"  placeholder="Enter New Password">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Confirm Password</label>
-                                        <input type="password" class="form-control" id="exampleInputPassword1"
-                                            placeholder="Confirm New Password">
+                                        <input type="password" class="form-control"
+                                          name="confirm_pwd" id='confirm_pwd'  placeholder="Confirm New Password">
                                     </div>
                                     <div class="mt-4">
                                         <button type="submit" class="btn btn-primary">Submit</button>

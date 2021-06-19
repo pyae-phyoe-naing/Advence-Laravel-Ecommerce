@@ -6,6 +6,7 @@ use App\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -43,6 +44,16 @@ class AdminController extends Controller
         $adminDetail = Admin::where('email',Auth::guard('admin')->user()->email)->first();
 
         return view('admin.admin_settings')->with(compact('adminDetail'));
+    }
+    ## check current password
+    public function chkCurrentPassword(Request $request){
+        $data = $request->all();
+        $hash = Auth::guard('admin')->user()->password;
+        if(Hash::check($data['current_pwd'], $hash)){
+            return 'true';
+        }else{
+            return 'false';
+        }
     }
     ## logout
     public function logout()

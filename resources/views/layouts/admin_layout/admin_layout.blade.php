@@ -104,6 +104,9 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
   @include('share.toastr')
+  {{-- custom admin js --}}
+  <script src="{{ url('js/admin_js/admin_script.js') }}"></script>
+
 </body>
 
 </html>
