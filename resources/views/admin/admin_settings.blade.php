@@ -33,37 +33,48 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form method="POST" action="{{ url('/admin/update-pwd') }}" name="updatePasswordForm" id='updatePasswordForm'>
-                               @csrf
+                            <form method="POST" action="{{ url('/admin/update-pwd') }}" name="updatePasswordForm"
+                                id='updatePasswordForm'>
+                                @csrf
                                 <div class="card-body">
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label for="exampleInputEmail1">Admin Name</label>
                                         <input type="text"  class="form-control" value="{{ $adminDetail->name }}"
                                         name="admin_name" id='admin_name' placeholder="Enter Admin/Sub Admin Name">
-                                    </div>
+                                    </div> --}}
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Email address</label>
-                                        <input  class="form-control" value="{{ $adminDetail->email }}" readonly>
+                                        <input class="form-control" value="{{ $adminDetail->email }}" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1">Admin Type</label>
-                                        <input  class="form-control" value="{{ $adminDetail->type }}" readonly>
+                                        <input class="form-control" value="{{ $adminDetail->type }}" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Current Password</label>
-                                        <input type="password" class="form-control"
-                                         id="current_pwd" name="current_pwd"   placeholder="Enter Current Password">
-                                         <small id="chkCurrentPwd"></small>
+                                        <input type="password"
+                                            class="form-control @error('current_pwd') is-invalid @enderror" id="current_pwd"
+                                            name="current_pwd" placeholder="Enter Current Password">
+                                        @error('current_pwd')
+                                            <small class="text text-danger">{{ $message }}</small>
+                                        @enderror
+                                        <small id="chkCurrentPwd"></small>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">New Password</label>
-                                        <input type="password" class="form-control"
-                                          name="new_pwd" id="new_pwd"  placeholder="Enter New Password">
+                                        <input type="password" class="form-control @error('new_pwd') is-invalid @enderror" name="new_pwd" id="new_pwd"
+                                            placeholder="Enter New Password">
+                                        @error('new_pwd')
+                                            <small class="text text-danger">{{ $message }}</small>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputPassword1">Confirm Password</label>
-                                        <input type="password" class="form-control"
-                                          name="confirm_pwd" id='confirm_pwd'  placeholder="Confirm New Password">
+                                        <input type="password" class="form-control @error('confirm_pwd') is-invalid @enderror" name="confirm_pwd" id='confirm_pwd'
+                                            placeholder="Confirm New Password">
+                                        @error('confirm_pwd')
+                                            <small class="text text-danger">{{ $message }}</small>
+                                        @enderror
                                     </div>
                                     <div class="mt-4">
                                         <button type="submit" class="btn btn-primary">Submit</button>

@@ -2,6 +2,7 @@ $(document).ready(function(){
 
     // Check Admin Password is correct or not
     $('#current_pwd').keyup(function(){
+        $('.text').html('');
         var current_pwd = $('#current_pwd').val();
 
         $.ajax({
