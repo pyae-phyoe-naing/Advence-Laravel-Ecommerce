@@ -14,11 +14,13 @@ Route::group(['prefix'=>'/admin','namespace'=>'Admin'],function(){
     Route::match(['get','post'],'/','AdminController@login');
     Route::group(['middleware'=>['admin']],function(){
         Route::get('/dashboard','AdminController@dashboard');
+        ## setting
         Route::get('/settings','AdminController@settings');
 
         Route::post('/check-current-pwd','AdminController@chkCurrentPassword');
         Route::post('/update-pwd','AdminController@updatePassword');
 
+        Route::match(['get', 'post'], '/update-admin-details','AdminController@updateAdminDetails');
 
         Route::get('/logout','AdminController@logout');
     });
