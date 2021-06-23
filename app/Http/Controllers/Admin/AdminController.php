@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Image;
 use App\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AdminUpdatePasswordRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\AdminUpdatePasswordRequest;
 
 class AdminController extends Controller
 {
@@ -82,19 +84,44 @@ class AdminController extends Controller
     ## update admin details
     public function updateAdminDetails(Request $request){
         if($request->isMethod('post')){
+
             $request->validate([
                 'admin_name' => 'required|regex:/^[\pL\s\-]+$/u',
                 'admin_mobile' => 'required|numeric',
+                'admin_image' => 'image',
             ],[
                 'admin_name.required' => 'Name is required',
                 'admin_mobile.required' => 'Phone is required',
                 'admin_mobile.numeric' => 'Valid phone number',
+                'admin_image.image' => 'Image is required',
             ]);
+            //  return $request->all();
+            $currentAdmin = Auth::guard('admin')->user();
+            // Upload Image
+            if($request->hasFile('admin_image')){
+                if($currentAdmin->image !== ''){
+                    File::delete('images/admin_images/admin_photos/'.$currentAdmin->image);
+                }
+                $file = $request->file('admin_image');
+                if($file->isValid()){
+                    ## get image extension
+                    $extension = $file->getClientOriginalExtension();
+                    ## generate new image name
+                    $imgName = time().uniqid().'.'.$extension;
+                    $imgPath = 'images/admin_images/admin_photos/'.$imgName;
+                    Image::make($file)->save($imgPath);
+                }
+            }else if(!empty($data['current_admin_image'])){
+                $imgName = $data['current_admin_image'];
+            }else{
+                $imgName = '';
+            }
             $data = $request->all();
             $currentAdmin = Auth::guard('admin')->user();
             Admin::where('email',$currentAdmin->email)->update([
               'name'=>$data['admin_name'],
-              'mobile'=>$data['admin_mobile']
+              'mobile'=>$data['admin_mobile'],
+              'image'=>$imgName
             ]);
             return redirect()->back()->with('success','Details updated success!');
         }
