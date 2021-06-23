@@ -17,7 +17,7 @@
                             class="img-circle elevation-2" alt="User Image">
 
                     @else
-                        <img src="https://ui-avatars.com/api/?name={{ Auth::guard('admin')->user()->name}}"
+                        <img src="https://ui-avatars.com/api/?name={{ Auth::guard('admin')->user()->name }}"
                             class="img-circle elevation-2" alt="User Image">
 
                     @endif
@@ -50,7 +50,12 @@
                     <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
                     <li class="nav-item">
-                        <a href="{{ url('/admin/dashboard') }}" class="nav-link">
+                        @if (Session::get('page') == 'dashboard')
+                            @php $active = 'active' @endphp
+                        @else
+                            @php $active = '' @endphp
+                        @endif
+                        <a href="{{ url('/admin/dashboard') }}" class="nav-link {{ $active }}">
                             <i class="nav-icon fas fa-home"></i>
                             <p>
                                 Dashboard
@@ -58,7 +63,12 @@
                         </a>
                     </li>
                     <li class="nav-item menu-open">
-                        <a href="#" class="nav-link">
+                        @if (Session::get('page') == 'settings' || Session::get('page') == 'update-admin-details')
+                            @php $active = 'active' @endphp
+                        @else
+                            @php $active = '' @endphp
+                        @endif
+                        <a href="#" class="nav-link {{ $active }}">
                             <i class="nav-icon fas fa-cog"></i>
                             <p>
                                 Settings
@@ -67,13 +77,24 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ url('/admin/settings') }}" class="nav-link">
+                                @if (Session::get('page') == 'settings')
+                                    @php $active = 'active' @endphp
+                                @else
+                                    @php $active = '' @endphp
+                                @endif
+                                <a href="{{ url('/admin/settings') }}" class="nav-link {{ $active }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Update Admin Password</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ url('/admin/update-admin-details') }}" class="nav-link">
+                                @if (Session::get('page') == 'update-admin-details')
+                                    @php $active = 'active' @endphp
+                                @else
+                                    @php $active = '' @endphp
+                                @endif
+                                <a href="{{ url('/admin/update-admin-details') }}"
+                                    class="nav-link {{ $active }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Update Admin Details</p>
                                 </a>

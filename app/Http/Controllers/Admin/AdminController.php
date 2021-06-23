@@ -10,11 +10,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\AdminUpdatePasswordRequest;
+use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller
 {
     public function dashboard()
     {
+        Session::put('page','dashboard');
         return view('admin.admin_dashboard');
     }
     ## login
@@ -45,6 +47,7 @@ class AdminController extends Controller
     ## settings
     public function settings()
     {
+        Session::put('page','settings');
         $adminDetail = Admin::where('email', Auth::guard('admin')->user()->email)->first();
 
         return view('admin.admin_settings')->with(compact('adminDetail'));
@@ -83,8 +86,8 @@ class AdminController extends Controller
     }
     ## update admin details
     public function updateAdminDetails(Request $request){
+        Session::put('page','update-admin-details');
         if($request->isMethod('post')){
-
             $request->validate([
                 'admin_name' => 'required|regex:/^[\pL\s\-]+$/u',
                 'admin_mobile' => 'required|numeric',
