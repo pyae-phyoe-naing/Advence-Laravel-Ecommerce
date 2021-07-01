@@ -24,6 +24,7 @@ Route::group(['prefix'=>'/admin','namespace'=>'Admin'],function(){
 
         ## section
         Route::get('/sections','SectionController@sections');
+        Route::post('/update-section-status','SectionController@updateSectionStatus');
 
         Route::get('/logout','AdminController@logout');
     });

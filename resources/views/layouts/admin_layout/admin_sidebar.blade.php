@@ -23,25 +23,10 @@
                     @endif
                 </div>
                 <div class="info">
-                    <a href="#"
-                        class="d-block">{{ auth()->guard('admin')->user()
-    ? auth()->guard('admin')->user()->name
-    : '-' }}</a>
+                    <a href="#" class="d-block">{{ auth()->guard('admin')->user() ? auth()->guard('admin')->user()->name : '-' }}</a>
                 </div>
             </div>
 
-            <!-- SidebarSearch Form -->
-            <div class="form-inline">
-                <div class="input-group" data-widget="sidebar-search">
-                    <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                        aria-label="Search">
-                    <div class="input-group-append">
-                        <button class="btn btn-sidebar">
-                            <i class="fas fa-search fa-fw"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
 
             <!-- Sidebar Menu -->
             <nav class="mt-2">
@@ -62,6 +47,8 @@
                             </p>
                         </a>
                     </li>
+                    <li class="nav-item my-1"></li>
+                    {{-- ------- Setting - --}}
                     <li class="nav-item menu-open">
                         @if (Session::get('page') == 'settings' || Session::get('page') == 'update-admin-details')
                             @php $active = 'active' @endphp
@@ -102,7 +89,49 @@
 
                         </ul>
                     </li>
+                    <li class="nav-item my-1"></li>
+                    {{-- ----Section -------- --}}
+                    <li class="nav-item menu-open">
+                        @if (Session::get('page') == 'sections' || Session::get('page') == 'categories')
+                            @php $active = 'active' @endphp
+                        @else
+                            @php $active = '' @endphp
+                        @endif
+                        <a href="#" class="nav-link {{ $active }}">
+                            <i class="nav-icon fas fa-th-large"></i>
+                            <p>
+                                Catalogues
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                @if (Session::get('page') == 'sections')
+                                    @php $active = 'active' @endphp
+                                @else
+                                    @php $active = '' @endphp
+                                @endif
+                                <a href="{{ url('/admin/sections') }}" class="nav-link {{ $active }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Sections</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                @if (Session::get('page') == 'categories')
+                                    @php $active = 'active' @endphp
+                                @else
+                                    @php $active = '' @endphp
+                                @endif
+                                <a href="{{ url('/admin/sections') }}"
+                                    class="nav-link {{ $active }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Categories</p>
+                                </a>
+                            </li>
 
+                        </ul>
+                    </li>
+                    <li class="nav-item my-1"></li>
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
