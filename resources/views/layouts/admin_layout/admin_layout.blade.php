@@ -18,10 +18,8 @@
         href="{{ url('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ url('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
-    <!-- <link rel="stylesheet" href="https://demos.creative-tim.com/argon-dashboard/assets/vendor/nucleo/css/nucleo.css">
-  <link rel="stylesheet"
-    href="https://demos.creative-tim.com/argon-dashboard/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css">
-  <link rel="stylesheet" href="https://demos.creative-tim.com/argon-dashboard/assets/css/argon.min.css?v=1.2.0"> -->
+     <!-- Select2 -->
+     <link rel="stylesheet" href="{{ url('plugins/select2/css/select2.min.css') }}">
     <!-- JQVMap -->
     <link rel="stylesheet" href="{{ url('plugins/jqvmap/jqvmap.min.css') }}">
     <!-- Theme style -->
@@ -33,10 +31,11 @@
     <!-- summernote -->
     <link rel="stylesheet" href="{{ url('plugins/summernote/summernote-bs4.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" />
+
     <!-- DataTables -->
-    <link rel="stylesheet" href="{{ url('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
-    <link rel="stylesheet" href="{{ url('plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
-    <link rel="stylesheet" href="{{ url('plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{ url('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ url('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ url('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -82,6 +81,11 @@
     </script>
     <!-- Bootstrap 4 -->
     <script src="{{ url('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- Select2 -->
+    <script src="{{ url('plugins/select2/js/select2.full.min.js') }}"></script>
+    <script>
+        $('.select2').select2()
+    </script>
     <!-- ChartJS -->
     <script src="{{ url('plugins/chart.js/Chart.min.js') }}"></script>
     <!-- Sparkline -->
@@ -107,18 +111,18 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="{{ url('js/admin_js/pages/dashboard.js') }}"></script>
     <!-- DataTables  & Plugins -->
-    <script src="{{ url('plugins/datatables/jquery.dataTables.min.js')}}"></script>
-    <script src="{{ url('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-    <script src="{{ url('plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
-    <script src="{{ url('plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
-    <script src="{{ url('plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
-    <script src="{{ url('plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
-    <script src="{{ url('plugins/jszip/jszip.min.js')}}"></script>
-    <script src="{{ url('plugins/pdfmake/pdfmake.min.js')}}"></script>
-    <script src="{{ url('plugins/pdfmake/vfs_fonts.js')}}"></script>
-    <script src="{{ url('plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
-    <script src="{{ url('plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
-    <script src="{{ url('plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
+    <script src="{{ url('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ url('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ url('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ url('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+    <script src="{{ url('plugins/datatables-buttons/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ url('plugins/datatables-buttons/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ url('plugins/jszip/jszip.min.js') }}"></script>
+    <script src="{{ url('plugins/pdfmake/pdfmake.min.js') }}"></script>
+    <script src="{{ url('plugins/pdfmake/vfs_fonts.js') }}"></script>
+    <script src="{{ url('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ url('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
+    <script src="{{ url('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
     {{-- Toastr CDN --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     @include('share.toastr')
