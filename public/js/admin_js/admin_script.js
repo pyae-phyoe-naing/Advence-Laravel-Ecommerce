@@ -31,9 +31,11 @@ $(document).ready(function(){
             data:{status:status,section_id:section_id},
             success:function(res){
               if(res['status'] == 0){
+                   toastr.info('InActive');
                    $('#section-'+res['section_id']).html(" <a class='updateSectionStatus' href='javascript:void(0)'>InActive</a>")
                 //  $('#section-'+res['section_id']).text("InActive")
               }else if(res['status'] == 1){
+                  toastr.info('Active');
                    $('#section-'+res['section_id']).html(" <a class='updateSectionStatus' href='javascript:void(0)'>Active</a>")
                  // $('#section-'+res['section_id']).text('Active')
               }
