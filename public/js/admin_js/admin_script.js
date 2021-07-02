@@ -21,8 +21,8 @@ $(document).ready(function(){
             }
         })
     });
-    // Section
-    $('.updateSectionStatus').click(function(){
+    // Section ***********************
+    $('.updateSectionStatus').on('click',function(){
         var status = $(this).text();
         var section_id = $(this).attr("section_id");
         $.ajax({
@@ -38,6 +38,29 @@ $(document).ready(function(){
                   toastr.info('Active');
                    $('#section-'+res['section_id']).html(" <a class='updateSectionStatus' href='javascript:void(0)'>Active</a>")
                  // $('#section-'+res['section_id']).text('Active')
+              }
+            },
+            error:function(error){
+                console.log('Error ');
+            }
+        });
+    });
+      // Category ***********************
+      $('.updateCategoryStatus').on('click',function(){
+        var status = $(this).text();
+        var category_id = $(this).attr("category_id");
+        $.ajax({
+            url:`/admin/update-categories-status`,
+            type:'POST',
+            data:{status:status,category_id:category_id},
+            success:function(res){
+
+              if(res['status'] == 0){
+                   toastr.info('InActive');
+                   $('#category-'+res['category_id']).html(" <a class='updateCategoryStatus' href='javascript:void(0)'>InActive</a>")
+              }else if(res['status'] == 1){
+                  toastr.info('Active');
+                   $('#category-'+res['category_id']).html(" <a class='updateCategoryStatus' href='javascript:void(0)'>Active</a>")
               }
             },
             error:function(error){

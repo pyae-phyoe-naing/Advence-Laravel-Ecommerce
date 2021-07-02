@@ -122,7 +122,7 @@
                                 @else
                                     @php $active = '' @endphp
                                 @endif
-                                <a href="{{ url('/admin/sections') }}"
+                                <a href="{{ url('/admin/categories') }}"
                                     class="nav-link {{ $active }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Categories</p>

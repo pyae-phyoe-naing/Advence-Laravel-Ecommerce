@@ -26,6 +26,10 @@ Route::group(['prefix'=>'/admin','namespace'=>'Admin'],function(){
         Route::get('/sections','SectionController@sections');
         Route::post('/update-section-status','SectionController@updateSectionStatus');
 
+        ## category
+        Route::get('categories','CategoryController@categories');
+        Route::post('/update-categories-status','CategoryController@updateCategoryStatus');
+
         Route::get('/logout','AdminController@logout');
     });
 });
