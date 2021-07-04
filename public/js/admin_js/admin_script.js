@@ -45,7 +45,7 @@ $(document).ready(function(){
             }
         });
     });
-      // Category ***********************
+    // Category ***********************
       $('.updateCategoryStatus').on('click',function(){
         var status = $(this).text();
         var category_id = $(this).attr("category_id");
@@ -68,4 +68,19 @@ $(document).ready(function(){
             }
         });
     });
+    // Append Category Level
+     $('#section_id').change(function(){
+         var section_id = $(this).val();
+         $.ajax({
+             method:'post',
+             url:'/admin/append-categories-level',
+             data:{section_id:section_id},
+             success:function(res){
+                $('#appendCategoriesLevel').html(res);
+             },
+             error:function(){
+                 console.log('Something wrong!');
+             }
+         })
+     })
 });

@@ -45,24 +45,15 @@
                                     <div class="form-group">
                                         <label for="category_name">Category Name</label>
                                         <input type="text" name="category_name" class="form-control
-                                            @error('category_name') is-invalid  @enderror" id="category_name"
+                                                @error('category_name') is-invalid  @enderror" id="category_name"
                                             placeholder="Enter name">
                                         @error('category_name')
                                             <small class="text text-danger"><strong>{{ $message }}</strong></small>
                                         @enderror
                                     </div>
-                                    <div class="form-group">
-                                        <label>Select Category Level</label>
-                                        <select name="parent_id" id="parent_id"
-                                            class="form-control select2 @error('parent_id') is-invalid  @enderror"
-                                            style="width: 100%;">
-                                            <option value="0">Main Category</option>
-                                        </select>
-                                        @error('parent_id')
-                                            <small class="text text-danger"><strong>{{ $message }}</strong></small>
-                                        @enderror
+                                    <div id="appendCategoriesLevel">
+                                        @include('admin.categories.append_categories_level')
                                     </div>
-
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -117,7 +108,8 @@
                                     <div class="form-group">
                                         <label for='url'>Category Url</label>
                                         <input type="text" name="url"
-                                            class="form-control @error('url') is-invalid  @enderror" id="url" placeholder="Enter Url">
+                                            class="form-control @error('url') is-invalid  @enderror" id="url"
+                                            placeholder="Enter Url">
                                         @error('url')
                                             <small class="text text-danger"><strong>{{ $message }}</strong></small>
                                         @enderror
