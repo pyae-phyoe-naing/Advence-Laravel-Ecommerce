@@ -13,7 +13,12 @@ class CategoryController extends Controller
     public function categories()
     {
         Session::put('page', 'categories');
-        $categories = Category::get();
+         $categories = Category::with('section','parentcategory')->get();
+        // $categories = Category::with(['section'=>function($query){
+        //     $query->select('id','name');
+        // }])->get();
+        // $categories = json_decode(json_encode($categories));
+        // echo "<pre>".print_r($categories,true)."</pre>";die;
         return view('admin.categories.categories', compact('categories'));
     }
     public function updateCategoryStatus(Request $request)
@@ -107,7 +112,7 @@ class CategoryController extends Controller
         if($request->ajax()){
             $data = $request->all();
             $getCategories = Category::with('subCategories')->where(['section_id'=>$data['section_id'],'parent_id'=>0,'status'=>1])->get();
-         
+
             return view('admin.categories.append_categories_level',compact('getCategories'));
         }
 
