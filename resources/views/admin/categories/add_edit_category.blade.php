@@ -22,12 +22,12 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                <form action="{{ url('/admin/add-edit-category') }}" method="POST" enctype="multipart/form-data"
-                    name="categoryForm" id="CategoryForm">
+                <form  method="POST" enctype="multipart/form-data" name="categoryForm" id="CategoryForm"
+                    @if(!empty($categorydata->id)) action="{{ url('/admin/add-edit-category',$categorydata->id) }}" @else action="{{ url('/admin/add-edit-category') }}" @endif>
                     @csrf
                     <div class="card card-default">
                         <div class="card-header">
-                            <h3 class="card-title">Add Category</h3>
+                            <h3 class="card-title">{{ $title }}</h3>
 
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -45,8 +45,8 @@
                                     <div class="form-group">
                                         <label for="category_name">Category Name</label>
                                         <input type="text" name="category_name" class="form-control
-                                                @error('category_name') is-invalid  @enderror" id="category_name"
-                                            placeholder="Enter name">
+                                        @error('category_name') is-invalid  @enderror" id="category_name" placeholder="Enter name"
+                                         @if(!empty($categorydata->category_name)) value="{{ $categorydata->category_name }}" @else value="{{ old('category_name') }}" @endif>
                                         @error('category_name')
                                             <small class="text text-danger"><strong>{{ $message }}</strong></small>
                                         @enderror
@@ -61,9 +61,10 @@
                                         <select name="section_id" id="section_id"
                                             class="form-control select2 @error('section_id') is-invalid  @enderror"
                                             style="width: 100%;">
-                                            <option disabled selected="selected">-- select --</option>
+                                            @if(empty($categorydata->id))<option disabled selected="selected">-- select --</option>@endif
                                             @foreach ($getSection as $section)
-                                                <option value="{{ $section->id }}">{{ $section->name }}</option>
+                                                <option {{ !empty($categorydata->section_id) && $section->id == $categorydata->section_id ? 'selected' : '' }}
+                                                value="{{ $section->id }}">{{ $section->name }}</option>
                                             @endforeach
 
                                         </select>
@@ -94,44 +95,47 @@
                                 <div class="col-12 col-md-6 ">
                                     <div class="form-group">
                                         <label for="cat_discount">Category Discount</label>
-                                        <input type="text" name="category_discount" class="form-control"
-                                            id="category_discount" placeholder="Enter Discount">
+                                        <input type="text" name="category_discount" class="form-control" id="category_discount" placeholder="Enter Discount"
+                                        @if(!empty($categorydata->category_discount)) value="{{ $categorydata->category_discount }}" @else value="{{ old('category_discount') }}" @endif>
                                     </div>
                                     <div class="form-group">
                                         <label for="description">Category Description</label>
-                                        <textarea name="description" id="description" class="form-control"
-                                            placeholder="Enter..." rows="3"></textarea>
+                                        <textarea name="description" id="description" class="form-control" placeholder="Enter..." rows="3">
+                                              @if(!empty($categorydata->description)) {{ $categorydata->description }} @else {{ old('description') }} @endif
+                                        </textarea>
 
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <div class="form-group">
                                         <label for='url'>Category Url</label>
-                                        <input type="text" name="url"
-                                            class="form-control @error('url') is-invalid  @enderror" id="url"
-                                            placeholder="Enter Url">
+                                        <input type="text" name="url" class="form-control @error('url') is-invalid  @enderror" id="url" placeholder="Enter Url"
+                                        @if(!empty($categorydata->url)) value="{{ $categorydata->url }}" @else value="{{ old('url') }}" @endif>
                                         @error('url')
                                             <small class="text text-danger"><strong>{{ $message }}</strong></small>
                                         @enderror
                                     </div>
                                     <div class="form-group">
                                         <label for="meta_title">Meta Title</label>
-                                        <textarea name="meta_title" id="meta_title" placeholder="Enter..."
-                                            class="form-control" rows="3"></textarea>
+                                        <textarea name="meta_title" id="meta_title" placeholder="Enter..." class="form-control" rows="3">
+                                            @if(!empty($categorydata->meta_title)) {{ $categorydata->meta_title }} @else {{ old('meta_title') }} @endif
+                                        </textarea>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label for="meta_description">Meta Description</label>
-                                        <textarea name="meta_description" id="meta_description" class="form-control"
-                                            rows="3" placeholder="Enter..."></textarea>
+                                        <textarea name="meta_description" id="meta_description" class="form-control"  rows="3" placeholder="Enter...">
+                                            @if(!empty($categorydata->meta_description)) {{ $categorydata->meta_description }} @else {{ old('meta_description') }} @endif
+                                        </textarea>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
                                         <label for="meta_keyword">Meta Keywords</label>
-                                        <textarea name="meta_keywords" id="meta_keywords" placeholder="Enter..."
-                                            class="form-control" rows="3"></textarea>
+                                        <textarea name="meta_keywords" id="meta_keywords" placeholder="Enter..." class="form-control" rows="3">
+                                            @if(!empty($categorydata->meta_keywords)) {{ $categorydata->meta_keywords }} @else {{ old('meta_keywords') }} @endif
+                                        </textarea>
                                     </div>
                                 </div>
                             </div>

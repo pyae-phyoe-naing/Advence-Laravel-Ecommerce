@@ -41,7 +41,7 @@
                                             <th>Category</th>
                                             <th>URL</th>
                                             <th>Status</th>
-
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -68,6 +68,7 @@
                                                             href="javascript:void(0)">InActive</a>
                                                     @endif
                                                 </td>
+                                                <td><a href="{{ url('/admin/add-edit-category',$category->id) }}" class="btn btn-sm btn-warning">Edit</a></td>
                                             </tr>
                                         @endforeach
                                     </tbody>

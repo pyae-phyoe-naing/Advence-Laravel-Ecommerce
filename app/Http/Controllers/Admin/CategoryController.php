@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use Image;
 use App\Category;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ class CategoryController extends Controller
     public function categories()
     {
         Session::put('page', 'categories');
-         $categories = Category::with('section','parentcategory')->get();
+        $categories = Category::with('section', 'parentcategory')->get();
         // $categories = Category::with(['section'=>function($query){
         //     $query->select('id','name');
         // }])->get();
@@ -40,6 +41,9 @@ class CategoryController extends Controller
     public function addEditCategory(Request $request, $id = null)
     {
         if (empty($id)) {
+            $title = 'Add Category';
+            $categorydata = array();
+            $getCategories = array();
             if ($request->isMethod('POST')) {
                 $request->validate([
                     'category_name' => 'required|regex:/^[\pL\s\-]+$/u',
@@ -47,7 +51,7 @@ class CategoryController extends Controller
                     'parent_id' => 'required',
                     'category_image' => 'required',
                     'url' => 'required',
-                ],[
+                ], [
                     'category_name.required' => 'Name is required',
                     'category_name.regex' => 'Name is valid',
                     'section_id.required' => 'Section is required',
@@ -69,22 +73,21 @@ class CategoryController extends Controller
                         Image::make($file)->save($imgPath);
                         // save database
                         $category->category_image = $imgName;
-
                     }
                 }
-                if(empty($request->description)){
+                if (empty($request->description)) {
                     $data['description'] = '';
                 }
-                if(empty($request->category_discount)){
+                if (empty($request->category_discount)) {
                     $data['category_discount'] = '';
                 }
-                if(empty($request->meta_title)){
+                if (empty($request->meta_title)) {
                     $data['meta_title'] = '';
                 }
-                if(empty($request->meta_description)){
+                if (empty($request->meta_description)) {
                     $data['meta_description'] = '';
                 }
-                if(empty($request->meta_keywords)){
+                if (empty($request->meta_keywords)) {
                     $data['meta_keywords'] = '';
                 }
                 $category->parent_id = $data['parent_id'];
@@ -98,23 +101,28 @@ class CategoryController extends Controller
                 $category->meta_keywords = $data['meta_keywords'];
                 $category->status = 1;
                 $category->save();
-                return redirect('/admin/categories')->with('success','category add success!');
-            } else {
-                $getSection = Section::get();
+                return redirect('/admin/categories')->with('success', 'category add success!');
             }
         } else {
-            $title = 'EDit Category';
+            $title = 'Edit Category';
+            $categorydata = Category::where('id', $id)->first();
+            // for append category level
+            $getCategories = Category::with('subCategories')->where(['parent_id'=>0,'section_id'=>$categorydata->section_id])->get();
+            // $getCategories = json_decode(json_encode($getCategories));
+            // echo "<pre>" . print_r($getCategories, true) . "</pre>";
+            // die;
         }
-        return view('admin.categories.add_edit_category', compact('getSection'));
+        $getSection = Section::get();
+        return view('admin.categories.add_edit_category', compact('title', 'getSection','categorydata','getCategories'));
     }
     ## append categories level
-    public function appendCategoriesLevel(Request $request){
-        if($request->ajax()){
+    public function appendCategoriesLevel(Request $request)
+    {
+        if ($request->ajax()) {
             $data = $request->all();
-            $getCategories = Category::with('subCategories')->where(['section_id'=>$data['section_id'],'parent_id'=>0,'status'=>1])->get();
+            $getCategories = Category::with('subCategories')->where(['section_id' => $data['section_id'], 'parent_id' => 0, 'status' => 1])->get();
 
-            return view('admin.categories.append_categories_level',compact('getCategories'));
+            return view('admin.categories.append_categories_level', compact('getCategories'));
         }
-
     }
 }
